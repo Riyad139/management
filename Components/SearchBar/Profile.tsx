@@ -4,7 +4,7 @@ import { AiOutlineBell } from "react-icons/ai";
 import ProfileModal from "../ProfileModal";
 export default function Profile() {
   const [isOpen, setOpen] = useState(false);
-  const modalController = (e) => {
+  const modalController = () => {
     setOpen(!isOpen);
   };
 
