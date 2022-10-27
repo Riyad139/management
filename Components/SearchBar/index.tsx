@@ -1,5 +1,7 @@
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import Profile from "./Profile";
+import api from "../../library/axiosClient";
+import { useQuery } from "react-query";
 
 export default function SearchBar() {
   return (
