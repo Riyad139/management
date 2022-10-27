@@ -1,15 +1,23 @@
-import type { NextPage } from "next";
-import Company from "../Components/Company/Index";
-import SearchBar from "../Components/SearchBar";
+import type { NextPage } from 'next'
+import Company from '../Components/Company/Index'
+import SearchBar from '../Components/SearchBar'
+import api from '../library/axiosClient'
+import { useQuery } from 'react-query'
 
 const Home: NextPage = () => {
-  return (
-    <div className="p-2">
-      <SearchBar />
+   const companies = useQuery('getcompanies', () => api.get('/companies'))
+   console.log(companies)
 
-      <Company />
-    </div>
-  );
-};
+   return (
+      <div className="p-2">
+         <SearchBar />
 
-export default Home;
+         {/* @TODO typing response */}
+         {companies.data?.data.map((company: any) => (
+            <Company {...company} />
+         ))}
+      </div>
+   )
+}
+
+export default Home
