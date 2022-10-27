@@ -1,0 +1,16 @@
+{
+  "tabWidth": 4,
+  "useTabs": false,
+  "semi": false,
+  "arrowParens": "avoid",
+  "singleQuote": true,
+  "printWidth": 90,
+  "overrides": [
+    {
+      "files": ["*.jsx", "*.tsx"],
+      "options": {
+        "tabWidth": 3
+      }
+    }
+  ]
+}
