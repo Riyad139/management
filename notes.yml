@@ -1,0 +1,3 @@
+server
+  never send 200 status if data is not sendign correctly
+  validate 100% of inputs, strip away unknown input values 
