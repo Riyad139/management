@@ -6,10 +6,10 @@ import TaskDuration from './TaskDuration'
 
 export default function TaskByCompany(props: { company: ICompany[]; tasks: Itask[] }) {
    return (
-      <Card>
+      <div className="bg-white py-5">
          {props.company?.map((it, i) => (
             <div className="py-2">
-               <div>
+               <div className="text-lg font-semibold px-5 ">
                   <p>{it.name}</p>
                </div>
                <div>
@@ -17,6 +17,6 @@ export default function TaskByCompany(props: { company: ICompany[]; tasks: Itask
                </div>
             </div>
          ))}
-      </Card>
+      </div>
    )
 }
