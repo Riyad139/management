@@ -24,12 +24,18 @@ export default function Company(company: ICompany) {
 
    return (
       <Container>
-         <div className="w-[350px] py-7 pl-5 pr-1 rounded-2xl bg-white">
+         <div className="w-[350px] shadow-sm py-7 pl-5 pr-1 rounded-2xl bg-white">
             {/* // top part */}
             <div className="flex justify-between items-center">
                <div className="flex space-x-3">
-                  <div className="w-11 cursor-pointer h-11 rounded-full">
-                     <Image src={'/Logo/google-logo.png'} alt="" width={42} height={42} />
+                  <div className="w-11 cursor-pointer flex justify-center items-center h-11 rounded-full">
+                     <Image
+                        src={company.logoUrl}
+                        alt=""
+                        width={42}
+                        className="object-cover"
+                        height={42}
+                     />
                   </div>
                   <div className="cursor-pointer">
                      <p className="text-lg">{company.name}</p>
