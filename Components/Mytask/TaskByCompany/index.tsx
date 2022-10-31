@@ -1,7 +1,6 @@
 import { ICompany } from '../../../@types/ICompany'
 import { Itask } from '../../../@types/Itask'
-import Card from '../../Card'
-import { GiSandsOfTime } from 'react-icons/gi'
+
 import TaskDuration from './TaskDuration'
 
 export default function TaskByCompany(props: { company: ICompany[]; tasks: Itask[] }) {
