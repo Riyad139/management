@@ -1,6 +1,20 @@
 import { Combobox } from 'evergreen-ui'
-import { BiRightArrow } from 'react-icons/bi'
+import { useState } from 'react'
+import { BiRightArrow, BiDownArrow } from 'react-icons/bi'
+import { useQuery } from 'react-query'
+import { Iproject } from '../../@types/Iproject'
+import api from '../../library/axiosClient'
+import ProjectBox from './ProjectBox'
+import classNames from 'classnames'
+import Collapsible from 'react-collapsible'
 export default function CompanyTaskSection() {
+   const projects = useQuery('projects', () => api.get<Iproject[]>('/projects'))
+   const [isOpen, setOpen] = useState(false)
+
+   const ToggleHandler = () => {
+      setOpen(!isOpen)
+   }
+
    return (
       <div className="mx-5 bg-white py-5 px-4 my-3">
          <div className="flex space-x-3">
@@ -27,8 +41,19 @@ export default function CompanyTaskSection() {
          </div>
          <div className="py-3 flex border-b justify-between text-sm text-gray-600">
             <div>
-               <div className="flex space-x-2 items-center">
-                  <BiRightArrow size={18} rotate={180} />
+               <div
+                  id="id1"
+                  onClick={ToggleHandler}
+                  className="flex space-x-5 cursor-pointer items-center"
+               >
+                  <BiRightArrow
+                     size={18}
+                     className={classNames(
+                        'duration-300',
+                        isOpen ? 'rotate-90' : 'rotate-0'
+                     )}
+                  />
+
                   <p className="upper">Title</p>
                </div>
             </div>
@@ -43,7 +68,16 @@ export default function CompanyTaskSection() {
                </div>
             </div>
          </div>
-         <div className="tasks"></div>
+
+         <Collapsible open={isOpen} trigger="">
+            <div className="Projects delay-100 transition-all">
+               {projects.data?.data.map(pr => (
+                  <div>
+                     <ProjectBox project={pr} />
+                  </div>
+               ))}
+            </div>
+         </Collapsible>
       </div>
    )
 }
