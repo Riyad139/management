@@ -6,21 +6,51 @@ export default function ChartBar() {
       var config = {
          type: 'bar',
          data: {
-            labels: [`Tue`, 'Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon'],
+            labels: [
+               `Tue`,
+               'Wed',
+               'Thu',
+               'Fri',
+               'Sat',
+               'Sun',
+               'Mon',
+               `Tue`,
+               'Wed',
+               'Thu',
+               'Fri',
+               'Sat',
+               'Sun',
+               'Mon',
+               `Tue`,
+               // 'Wed',
+               // 'Thu',
+               // 'Fri',
+               // 'Sat',
+               // 'Sun',
+               // 'Mon',
+            ],
             datasets: [
                {
                   label: new Date().getFullYear(),
-                  backgroundColor: '#3182ce',
-                  borderColor: '#3182ce',
-                  data: [65, 78, 66, 44, 56, 67, 75],
+                  backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                  borderColor: 'rgba(255, 159, 64, 1)',
+                  borderWidth: 1.5,
+                  data: [
+                     65, 78, 66, 44, 56, 67, 75, 65, 78, 66, 44, 56, 67, 75, 65, 78, 66,
+                     44, 56, 67, 75,
+                  ],
                   fill: false,
                },
                {
                   label: new Date().getFullYear() - 1,
                   fill: false,
-                  backgroundColor: '#edf2f7',
-                  borderColor: '#edf2f7',
-                  data: [40, 68, 86, 74, 56, 60, 87],
+                  backgroundColor: 'rgba(255, 159, 64, 0.1)',
+                  borderColor: 'rgba(255, 159, 64, 0.3)',
+                  borderWidth: 1.5,
+                  data: [
+                     45, 80, 60, 48, 66, 60, 55, 75, 70, 76, 34, 46, 77, 65, 60, 73, 60,
+                     44, 56, 67, 75,
+                  ],
                },
             ],
          },
@@ -63,7 +93,7 @@ export default function ChartBar() {
                         display: false,
                         borderDash: [2],
                         borderDashOffset: [2],
-                        color: 'rgba(33, 37, 41, 0.3)',
+                        color: 'rgba(72, 122, 180, .7);',
                         zeroLineColor: 'rgba(0, 0, 0, 0)',
                         zeroLineBorderDash: [2],
                         zeroLineBorderDashOffset: [2],
@@ -104,7 +134,7 @@ export default function ChartBar() {
    }, [])
    return (
       <>
-         <div className=" flex flex-col   mb-6 shadow-lg rounded">
+         <div className=" flex flex-col   mb-6  rounded">
             <div className="rounded-t px-4 py-3 bg-transparent">
                <div className=" w-full">
                   <h6 className=" text-[#7780a1] mb-1 text-xs font-semibold">
@@ -115,7 +145,7 @@ export default function ChartBar() {
             <div className="p-2">
                {/* Chart */}
                <div className="">
-                  <canvas className="w-full h-[500px]" id="line-chart"></canvas>
+                  <canvas className="w-full  h-[500px]" id="line-chart"></canvas>
                </div>
             </div>
          </div>
