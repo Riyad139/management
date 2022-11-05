@@ -11,4 +11,5 @@ export interface Itask {
     createdBy: string
     coverImage: string
     deadLine: string
+    completedTask: number
 }
