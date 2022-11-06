@@ -1,18 +1,78 @@
 import { Combobox } from 'evergreen-ui'
-import { useState } from 'react'
-import { BiRightArrow, BiDownArrow } from 'react-icons/bi'
+import { useMemo, useState } from 'react'
+import { BiRightArrow } from 'react-icons/bi'
+import { BsArrowDown } from 'react-icons/bs'
 import { useQuery } from 'react-query'
 import { Iproject } from '../../@types/Iproject'
 import api from '../../library/axiosClient'
 import ProjectBox from './ProjectBox'
 import classNames from 'classnames'
 import Collapsible from 'react-collapsible'
+import { compareAsc } from 'date-fns'
+
 export default function CompanyTaskSection() {
-   const projects = useQuery('projects', () => api.get<Iproject[]>('/projects'))
    const [isOpen, setOpen] = useState(false)
+   //const [isSortByDate, setIsSortByDate] = useState(false)
+   const [sortedBy, setSortedBy] = useState('duration')
+   // duration -duration perc -perc
+   const [filterdby, setFirlterdby] = useState('')
+   const [filterdbyTime, setFirlterdbyTime] = useState('')
+
+   const projects = useQuery('projects', () => api.get<Iproject[]>('/projects'))
+   const newData = useMemo(() => {
+      const data = projects.data?.data.sort(function (a, b) {
+         return (
+            compareAsc(new Date(a.dueDate), new Date(b.dueDate)) *
+            (sortedBy == 'duration' ? 1 : -1)
+         )
+      })
+      console.log(data)
+      return data
+   }, [projects.data, sortedBy])
+
+   const filterdData = useMemo(() => {
+      if (!newData) return
+      if (filterdby == '' || filterdby == 'All') return newData
+      const data = newData.filter(it => it.tags.indexOf(filterdby) != -1)
+      return data
+   }, [projects, filterdby])
+
+   const filterdDataByTime = useMemo(() => {
+      if (!filterdData) return
+      if (filterdbyTime == '' || filterdbyTime == 'All') return filterdData
+      const data = filterdData?.filter(it => it.dueDate == filterdbyTime)
+      return data
+   }, [projects, filterdbyTime])
+
+   const tags = useMemo(() => {
+      if (!projects.data?.data) return
+      let data = []
+      for (const Data of projects.data?.data) {
+         for (const val of Data.tags) {
+            if (data.indexOf(val) == -1) data.push(val)
+         }
+      }
+      return data
+   }, [projects])
+   const dueTime = useMemo(() => {
+      if (!projects.data?.data) return
+      let data = []
+      for (const Date of projects.data.data) {
+         if (data.indexOf(Date.dueDate) == -1) data.push(Date.dueDate)
+      }
+      return data
+   }, [projects])
+
+   if (!projects.data?.data || !newData || !tags || !dueTime) return null
 
    const ToggleHandler = () => {
       setOpen(!isOpen)
+   }
+   const SortByDateHandler = () => {
+      setSortedBy(it => (it === 'duration' ? '-duration' : 'duration'))
+   }
+   const SortByPercentage = () => {
+      setSortedBy(it => (it === 'percentage' ? '-percentage' : 'percentage'))
    }
 
    return (
@@ -23,8 +83,8 @@ export default function CompanyTaskSection() {
                   openOnFocus
                   width={200}
                   height={40}
-                  items={['UI/UX', 'IOS Development', 'Design', 'Dashboard']}
-                  onChange={selected => console.log(selected)}
+                  items={['All', ...tags]}
+                  onChange={selected => setFirlterdby(selected)}
                   placeholder="Project"
                />
             </div>
@@ -33,8 +93,8 @@ export default function CompanyTaskSection() {
                   openOnFocus
                   width={200}
                   height={40}
-                  items={['19 Jun 2023', '22 Dec 2022', '29 Jan 2023', '30 Jan 2023']}
-                  onChange={selected => console.log(selected)}
+                  items={['All', ...dueTime]}
+                  onChange={selected => setFirlterdbyTime(selected)}
                   placeholder="Time"
                />
             </div>
@@ -46,23 +106,45 @@ export default function CompanyTaskSection() {
                   onClick={ToggleHandler}
                   className="flex space-x-5 cursor-pointer items-center"
                >
-                  <BiRightArrow
-                     size={18}
-                     className={classNames(
-                        'duration-300',
-                        isOpen ? 'rotate-90' : 'rotate-0'
-                     )}
-                  />
-
+                  {' '}
+                  <div className="w-9 p-1 h-9 flex justify-center items-center border rounded-full">
+                     <BiRightArrow
+                        size={18}
+                        className={classNames(
+                           'duration-300',
+                           isOpen ? 'rotate-90' : 'rotate-0'
+                        )}
+                     />
+                  </div>
                   <p className="upper">Title</p>
                </div>
             </div>
             <div>
-               <div className="flex space-x-5">
-                  <div className="flex space-x-2 items-center">
+               <div className="flex space-x-5 ">
+                  <div
+                     onClick={SortByDateHandler}
+                     className="flex space-x-1 cursor-pointer justify-center  items-center"
+                  >
+                     <BsArrowDown
+                        size={14}
+                        className={classNames(
+                           'duration-300',
+                           sortedBy == '-duration' ? 'rotate-180' : 'rotate-0'
+                        )}
+                     />
                      <p className="upper">Duration</p>
                   </div>
-                  <div className="flex space-x-2 items-center">
+                  <div
+                     onClick={SortByPercentage}
+                     className="flex space-x-1 justify-center cursor-pointer items-center"
+                  >
+                     <BsArrowDown
+                        className={classNames(
+                           'duration-300',
+                           sortedBy == 'percentage' ? 'rotate-180' : 'rotate-0'
+                        )}
+                        size={14}
+                     />
                      <p className="upper">Percentage</p>
                   </div>
                </div>
@@ -71,7 +153,7 @@ export default function CompanyTaskSection() {
 
          <Collapsible open={isOpen} trigger="">
             <div className="Projects delay-100 transition-all">
-               {projects.data?.data.map(pr => (
+               {filterdDataByTime?.map(pr => (
                   <div>
                      <ProjectBox project={pr} />
                   </div>

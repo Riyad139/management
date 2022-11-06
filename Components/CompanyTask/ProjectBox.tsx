@@ -12,18 +12,14 @@ export default function ProjectBox(props: { project: Iproject }) {
    const taskFromProject = useQuery('Tasks', () => api.get<Itask[]>('/tasks'))
    if (!taskFromProject.data?.data) return null
 
-   const handler = () => {
-      setOpen(!isOpen)
-   }
-
    return (
       <div>
          <div
             onClick={() => setOpen(!isOpen)}
             className="border-b cursor-pointer text-gray-600 py-2 items-center justify-between flex"
          >
-            <div className="flex items-center space-x-3 text-sm">
-               <div className="p-2 border rounded-full">
+            <div className="flex items-center justify-center space-x-3 text-sm">
+               <div className="p-1 flex justify-center items-center h-9 w-9 border rounded-full">
                   {taskFromProject.data?.data.length}
                </div>
                <p>{props.project.name}</p>

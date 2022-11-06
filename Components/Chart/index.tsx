@@ -5,7 +5,6 @@ import FilterOptions from './FilterOptions'
 export default function ChartSection() {
    return (
       <div className="w-full h-[500px]  ">
-         <FilterOptions />
          <ChartBar />
       </div>
    )
