@@ -12,4 +12,5 @@ export interface Itask {
     coverImage: string
     deadLine: string
     completedTask: number
+    workedTime: { startTime: string; endTime: string }[]
 }
