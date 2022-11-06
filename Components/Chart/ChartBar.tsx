@@ -1,8 +1,39 @@
 import Chart from 'chart.js/auto'
 import { useEffect } from 'react'
+import { useQuery } from 'react-query'
+import { Itask } from '../../@types/Itask'
+import api from '../../library/axiosClient'
 
 export default function ChartBar() {
+   const tasks = useQuery('tasks', () => api.get<Itask[]>('/tasks'))
+
    useEffect(() => {
+      console.log(tasks.data?.data)
+      if (!tasks.data?.data) return
+      let HasMp = new Map()
+
+      for (let i = 1; i < tasks.data.data.length; i++) {
+         for (const date of tasks.data.data[i].workedTime) {
+            console.log(date)
+            const sd = new Date(date.startTime)
+            const ed = new Date(date.endTime)
+            if (HasMp.has(sd)) {
+               const temp = HasMp.get(sd)
+               HasMp.set(sd, temp + (new Date(ed) - new Date(sd)) / 60000)
+            } else HasMp.set(sd, (new Date(ed) - new Date(sd)) / 60000)
+         }
+      }
+      console.log(HasMp)
+      const it = HasMp.values()
+      let data = []
+      data.push(it.next().value)
+      let i = 0
+      while (i < HasMp.size) {
+         data.push(it.next().value)
+         i++
+      }
+      console.log(data.length)
+
       var config = {
          type: 'bar',
          data: {
@@ -22,12 +53,12 @@ export default function ChartBar() {
                'Sun',
                'Mon',
                `Tue`,
-               // 'Wed',
-               // 'Thu',
-               // 'Fri',
-               // 'Sat',
-               // 'Sun',
-               // 'Mon',
+               'Wed',
+               'Thu',
+               'Fri',
+               'Sat',
+               'Sun',
+               'Mon',
             ],
             datasets: [
                {
@@ -35,22 +66,8 @@ export default function ChartBar() {
                   backgroundColor: 'rgba(255, 159, 64, 0.5)',
                   borderColor: 'rgba(255, 159, 64, 1)',
                   borderWidth: 1.5,
-                  data: [
-                     65, 78, 66, 44, 56, 67, 75, 65, 78, 66, 44, 56, 67, 75, 65, 78, 66,
-                     44, 56, 67, 75,
-                  ],
+                  data: [...data],
                   fill: false,
-               },
-               {
-                  label: new Date().getFullYear() - 1,
-                  fill: false,
-                  backgroundColor: 'rgba(255, 159, 64, 0.1)',
-                  borderColor: 'rgba(255, 159, 64, 0.3)',
-                  borderWidth: 1.5,
-                  data: [
-                     45, 80, 60, 48, 66, 60, 55, 75, 70, 76, 34, 46, 77, 65, 60, 73, 60,
-                     44, 56, 67, 75,
-                  ],
                },
             ],
          },
@@ -131,7 +148,7 @@ export default function ChartBar() {
       return function cleanup() {
          myLineChart.destroy()
       }
-   }, [])
+   }, [tasks])
    return (
       <>
          <div className=" flex flex-col   mb-6  rounded">
