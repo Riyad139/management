@@ -14,13 +14,15 @@ export default function ChartBar() {
 
       for (let i = 1; i < tasks.data.data.length; i++) {
          for (const date of tasks.data.data[i].workedTime) {
-            console.log(date)
             const sd = new Date(date.startTime)
+            const key = new Date(date.startTime.split(' ')[0]).getTime()
             const ed = new Date(date.endTime)
-            if (HasMp.has(sd)) {
-               const temp = HasMp.get(sd)
-               HasMp.set(sd, temp + (new Date(ed) - new Date(sd)) / 60000)
-            } else HasMp.set(sd, (new Date(ed) - new Date(sd)) / 60000)
+            console.log(HasMp.has(key))
+            console.log(key)
+            if (HasMp.has(key)) {
+               const temp = HasMp.get(key)
+               HasMp.set(key, temp + (new Date(ed) - new Date(sd)) / 60000)
+            } else HasMp.set(key, (new Date(ed) - new Date(sd)) / 60000)
          }
       }
       console.log(HasMp)
