@@ -11,7 +11,7 @@ export default function TaskName(props: { task: Itask; no: number }) {
          <div className="flex py-2 border-b text-sm justify-between">
             <div className="flex space-x-7">
                <p>0{props.no}</p>
-               <p className="line-through text-gray-600">{props.task.name}</p>
+               <p className="  line-through  text-gray-600">{props.task.name}</p>
             </div>
             <BsCheckCircleFill
                onClick={tickHandler}

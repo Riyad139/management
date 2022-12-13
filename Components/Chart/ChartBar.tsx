@@ -5,15 +5,15 @@ import { Itask } from '../../@types/Itask'
 import api from '../../library/axiosClient'
 
 export default function ChartBar() {
-   const tasks = useQuery('tasks', () => api.get<Itask[]>('/tasks'))
+   const tasks = useQuery('tasks', () => api.get<{ data: Itask[] }>('/tasks'))
 
    useEffect(() => {
       console.log(tasks.data?.data)
-      if (!tasks.data?.data) return
+      if (!tasks.data?.data.data) return
       let HasMp = new Map()
 
-      for (let i = 1; i < tasks.data.data.length; i++) {
-         for (const date of tasks.data.data[i].workedTime) {
+      for (let i = 1; i < tasks.data.data.data.length; i++) {
+         for (const date of tasks.data.data.data[i].workedTime) {
             const sd = new Date(date.startTime)
             const key = new Date(date.startTime.split(' ')[0]).getTime()
             const ed = new Date(date.endTime)

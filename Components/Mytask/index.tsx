@@ -3,8 +3,6 @@ import { Itask } from '../../@types/Itask'
 import Card from '../Card'
 import TaskName from './TaskName'
 export default function Mytask(props: { taskType: string; tasks: Itask[] }) {
-
-
    return (
       <Card>
          <p className="text-lg font-medium">

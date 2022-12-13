@@ -9,7 +9,10 @@ import TaskBox from './TaskBox'
 export default function ProjectBox(props: { project: Iproject }) {
    const [isOpen, setOpen] = useState(false)
    //will add dynamic later
-   const taskFromProject = useQuery('Tasks', () => api.get<Itask[]>('/tasks'))
+   const taskFromProject = useQuery('Tasks', () =>
+      api.get<{ completedTask: number; data: Itask[] }>('/tasks')
+   )
+   console.log(taskFromProject.data?.data)
    if (!taskFromProject.data?.data) return null
 
    return (
@@ -20,7 +23,7 @@ export default function ProjectBox(props: { project: Iproject }) {
          >
             <div className="flex items-center justify-center space-x-3 text-sm">
                <div className="p-1 flex justify-center items-center h-9 w-9 border rounded-full">
-                  {taskFromProject.data?.data.length}
+                  {taskFromProject.data?.data.data.length}
                </div>
                <p>{props.project.name}</p>
             </div>
@@ -28,8 +31,8 @@ export default function ProjectBox(props: { project: Iproject }) {
                <p>{props.project.dueDate}</p>
                <p>
                   {Math.ceil(
-                     taskFromProject.data?.data[0].completedTask /
-                        (taskFromProject.data?.data.length - 1)
+                     taskFromProject.data?.data.completedTask /
+                        (taskFromProject.data?.data.data.length - 1)
                   )}
                   %
                </p>
@@ -38,7 +41,7 @@ export default function ProjectBox(props: { project: Iproject }) {
          <Collapsible open={isOpen} trigger="">
             <div className="Projects delay-100 transition-all">
                <div>
-                  <TaskBox task={taskFromProject.data.data} />
+                  <TaskBox task={taskFromProject.data.data.data} />
                </div>
             </div>
          </Collapsible>
