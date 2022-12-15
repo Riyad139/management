@@ -12,9 +12,7 @@ import { compareAsc } from 'date-fns'
 
 export default function CompanyTaskSection() {
    const [isOpen, setOpen] = useState(false)
-   //const [isSortByDate, setIsSortByDate] = useState(false)
    const [sortedBy, setSortedBy] = useState('duration')
-   // duration -duration perc -perc
    const [filterdby, setFirlterdby] = useState('')
    const [filterdbyTime, setFirlterdbyTime] = useState('')
 
@@ -71,27 +69,24 @@ export default function CompanyTaskSection() {
    const SortByDateHandler = () => {
       setSortedBy(it => (it === 'duration' ? '-duration' : 'duration'))
    }
-   const SortByPercentage = () => {
-      setSortedBy(it => (it === 'percentage' ? '-percentage' : 'percentage'))
-   }
 
    return (
       <div className="mx-5 bg-white py-5 px-4 my-3">
-         <div className="flex space-x-3">
-            <div>
+         <div className="flex  space-x-3">
+            <div className="w-28 md:w-56">
                <Combobox
                   openOnFocus
-                  width={200}
+                  width="100%"
                   height={40}
                   items={['All', ...tags]}
                   onChange={selected => setFirlterdby(selected)}
                   placeholder="Project"
                />
             </div>
-            <div>
+            <div className="w-28 md:w-56">
                <Combobox
                   openOnFocus
-                  width={200}
+                  width="100%"
                   height={40}
                   items={['All', ...dueTime]}
                   onChange={selected => setFirlterdbyTime(selected)}
@@ -123,7 +118,7 @@ export default function CompanyTaskSection() {
                <div className="flex space-x-5 ">
                   <div
                      onClick={SortByDateHandler}
-                     className="flex space-x-1 cursor-pointer justify-center  items-center"
+                     className="sm:flex hidden sm:visible space-x-1 cursor-pointer justify-center  items-center"
                   >
                      <BsArrowDown
                         size={14}
@@ -133,19 +128,6 @@ export default function CompanyTaskSection() {
                         )}
                      />
                      <p className="upper">Duration</p>
-                  </div>
-                  <div
-                     onClick={SortByPercentage}
-                     className="flex space-x-1 justify-center cursor-pointer items-center"
-                  >
-                     <BsArrowDown
-                        className={classNames(
-                           'duration-300',
-                           sortedBy == 'percentage' ? 'rotate-180' : 'rotate-0'
-                        )}
-                        size={14}
-                     />
-                     <p className="upper">Percentage</p>
                   </div>
                </div>
             </div>

@@ -3,11 +3,16 @@ import Collapsible from 'react-collapsible'
 import { useQuery } from 'react-query'
 import { Iproject } from '../../@types/Iproject'
 import { Itask } from '../../@types/Itask'
+import { IoIosArrowDown } from 'react-icons/io'
+
 import api from '../../library/axiosClient'
 import TaskBox from './TaskBox'
+import classNames from 'classnames'
 
 export default function ProjectBox(props: { project: Iproject }) {
    const [isOpen, setOpen] = useState(false)
+   const [isOpenProject, setOpenProject] = useState(false)
+
    //will add dynamic later
    const taskFromProject = useQuery('Tasks', () =>
       api.get<{ completedTask: number; data: Itask[] }>('/tasks')
@@ -19,28 +24,30 @@ export default function ProjectBox(props: { project: Iproject }) {
       <div>
          <div
             onClick={() => setOpen(!isOpen)}
-            className="border-b cursor-pointer text-gray-600 py-2 items-center justify-between flex"
+            className=" border-b cursor-pointer text-gray-600 py-3 items-center flex"
          >
             <div className="flex items-center justify-center space-x-3 text-sm">
                <div className="p-1 flex justify-center items-center h-9 w-9 border rounded-full">
                   {taskFromProject.data?.data.data.length}
                </div>
-               <p>{props.project.name}</p>
             </div>
-            <div className="flex space-x-16">
-               <p>{props.project.dueDate}</p>
-               <p>
-                  {Math.ceil(
-                     taskFromProject.data?.data.completedTask /
-                        (taskFromProject.data?.data.data.length - 1)
+            <div className="sm:flex ml-4 justify-between w-full">
+               <p className="font-semibold">{props.project.name}</p>
+               <p className="text-sm ">{props.project.dueDate}</p>
+            </div>
+            <div onClick={() => setOpenProject(!isOpenProject)}>
+               <IoIosArrowDown
+                  className={classNames(
+                     'mx-3',
+                     isOpenProject || isOpen ? 'rotate-180' : ''
                   )}
-                  %
-               </p>
+                  size={20}
+               />
             </div>
          </div>
          <Collapsible open={isOpen} trigger="">
             <div className="Projects delay-100 transition-all">
-               <div>
+               <div className="border-b">
                   <TaskBox task={taskFromProject.data.data.data} />
                </div>
             </div>
