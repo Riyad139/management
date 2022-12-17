@@ -8,7 +8,6 @@ export default function ChartBar() {
    const tasks = useQuery('tasks', () => api.get<{ data: Itask[] }>('/tasks'))
 
    useEffect(() => {
-      console.log(tasks.data?.data)
       if (!tasks.data?.data.data) return
       let HasMp = new Map()
 
@@ -38,6 +37,7 @@ export default function ChartBar() {
 
       var config = {
          type: 'bar',
+
          data: {
             labels: [
                `Tue`,
@@ -62,6 +62,7 @@ export default function ChartBar() {
                'Sun',
                'Mon',
             ],
+
             datasets: [
                {
                   label: new Date().getFullYear(),
