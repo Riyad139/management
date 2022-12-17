@@ -1,3 +1,7 @@
 server
-  never send 200 status if data is not sendign correctly
-  validate 100% of inputs, strip away unknown input values 
+never send 200 status if data is not sendign correctly
+validate 100% of inputs, strip away unknown input values
+
+1. make responsive the company by name page
+2. text overflow problem in company be name page to be fixed
+3. make home page responsive
