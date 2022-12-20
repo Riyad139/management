@@ -2,17 +2,22 @@ import Image from 'next/image'
 import pic from '../../public/DummyProjectPic/project-1.jpg'
 import { IoChatbubbleEllipsesOutline } from 'react-icons/io5'
 import Worker from './Worker'
+import { Iproject } from '../../@types/Iproject'
 
 const dummyData = [1, 2, 3]
 
-export default function Project() {
+export default function Project(props: { project: Iproject }) {
    return (
       <div className="px-5 mr-7 space-y-5  py-6 rounded-xl w-[350px] text-gray-700 bg-white">
          <div className="img ">
-            <Image src={pic} alt="" className="rounded-xl aspect-[16/9]" />
+            <img
+               src={props.project.coverImage}
+               alt=""
+               className="rounded-xl aspect-[16/9]"
+            />
          </div>
          <div className="space-y-3">
-            <p className="text-gray-800 font-bold">Slack</p>
+            <p className="text-gray-800 font-bold">{props.project.name}</p>
             <p className="text-sm">
                This project needs some time to work so that this project can be done in
                time
