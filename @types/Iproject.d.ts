@@ -11,4 +11,5 @@ export interface Iproject {
     createdBy: string
     createdAt: string
     updatedAt: string
+    coverImage: string
 }
