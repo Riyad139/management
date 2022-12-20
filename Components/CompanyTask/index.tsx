@@ -123,7 +123,7 @@ export default function CompanyTaskSection() {
                      <BsArrowDown
                         size={14}
                         className={classNames(
-                           'duration-300',
+                           'duration-300 ',
                            sortedBy == '-duration' ? 'rotate-180' : 'rotate-0'
                         )}
                      />

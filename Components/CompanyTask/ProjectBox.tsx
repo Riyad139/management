@@ -38,7 +38,7 @@ export default function ProjectBox(props: { project: Iproject }) {
             <div onClick={() => setOpenProject(!isOpenProject)}>
                <IoIosArrowDown
                   className={classNames(
-                     'mx-3',
+                     'mx-3 visible sm:hidden ',
                      isOpenProject || isOpen ? 'rotate-180' : ''
                   )}
                   size={20}
