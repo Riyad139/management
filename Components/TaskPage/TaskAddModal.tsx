@@ -15,7 +15,7 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
 import { Dispatch, SetStateAction, useState } from 'react'
 
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
+//registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview)
 
 export default function TaskAddModal(props: {
    Handler: Dispatch<SetStateAction<boolean>>
@@ -23,9 +23,13 @@ export default function TaskAddModal(props: {
    const [values, setValues] = useState([])
    const [files, setFiles] = useState([])
    return (
-      <div className=" w-[32rem] h-full   py-5 px-5 space-y-5">
+      <div className=" w-[36rem] bg-white my-10  py-14 px-14 space-y-5">
          <div className="input w-full ">
-            <TextInputField label="Task Name" placeholder="Placeholder text" />
+            <TextInputField
+               className="py-5 !text-sm"
+               label="Task Name"
+               placeholder="Placeholder text"
+            />
          </div>
          <div className="tags w-full">
             <p className="font-[370] text-gray-700 -mt-2 mb-2 text-sm">Task Tags</p>
@@ -34,7 +38,7 @@ export default function TaskAddModal(props: {
                values={values}
                tagSubmitKey="space"
                width="100%"
-               className="max-w-lg w-lg max-h-[10rem]"
+               className="max-w-lg !py-1.5 !text-xl w-lg max-h-[10rem]"
                onChange={values => {
                   setValues(values)
                }}
