@@ -5,7 +5,7 @@ import TaskName from './TaskName'
 export default function Mytask(props: { taskType: string; tasks: Itask[] }) {
    return (
       <Card>
-         <p className="text-lg font-medium">
+         <p className="text-lg  font-medium">
             {props.taskType}{' '}
             <span className="text-sm font-normal ml-3 text-gray-600">(05)</span>{' '}
          </p>

@@ -17,11 +17,11 @@ export default function Projects() {
    if (!project.data?.data) return ''
 
    return (
-      <div className="w-full h-[100vh] overflow-y-hidden">
+      <div className="w-full  h-[100vh] overflow-y-hidden">
          <SearchBar />
 
          <Container>
-            <div className={'flex space-x-0 md:space-x-2 lg:space-x-6 '}>
+            <div className={'flex space-x-0 px-4 md:space-x-2 lg:space-x-6 '}>
                <div
                   className={classNames(
                      '',

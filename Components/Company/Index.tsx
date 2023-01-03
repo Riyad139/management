@@ -28,7 +28,7 @@ export default function Company(company: ICompany) {
 
    return (
       <Container>
-         <div className="w-[350px] shadow-sm py-7 pl-5 pr-1 rounded-2xl bg-white">
+         <div className="w-full xl:w-[19rem] 1xl:w-[21rem] shadow-sm py-7 pl-5 pr-1 rounded-2xl bg-white">
             {/* // top part */}
             <div className="flex justify-between items-center">
                <div className="flex space-x-3">
@@ -76,7 +76,7 @@ export default function Company(company: ICompany) {
                   {projectRes.data?.data[0].totalTask}
                </p>
                <div className="">
-                  <LinearProgress variant="determinate" value={50} />
+                  <LinearProgress className='!z-5' variant="determinate" value={50} />
                </div>
             </div>
             {/* task starts here */}

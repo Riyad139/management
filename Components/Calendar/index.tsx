@@ -28,7 +28,7 @@ export default function Calender(props: { meetings: Imeetings[] }) {
    }
 
    return (
-      <div className={'p-5 my-10 relative rounded-lg shadow-sm bg-white'}>
+      <div className={'py-6 1xl:px-5 px-0 my-10 relative rounded-lg shadow-sm bg-white'}>
          {isClicked && (
             <CalenderModal setDay={setDays} setModal={setCliked} date={isClicked} />
          )}
