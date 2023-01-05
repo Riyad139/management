@@ -6,7 +6,7 @@ export default function TitleBar(props: {
    date: string
 }) {
    return (
-      <div>
+      <div className="mx-5">
          <div className="text-xs grid grid-cols-12 mb-7 text-gray-500">
             <div className=" col-start-1 col-end-13 md:col-end-7 lg:col-end-5 bg-white rounded-l-md flex py-2 space-x-5  items-center border">
                {props.name == 'Task name' && <p className="ml-5 text-base">#</p>}

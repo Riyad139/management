@@ -23,7 +23,7 @@ export default function TaskAddModal(props: {
    const [values, setValues] = useState([])
    const [files, setFiles] = useState([])
    return (
-      <div className=" w-[36rem] bg-white my-10  py-14 px-14 space-y-5">
+      <div className=" w-[36rem] bg-white my-10  py-14 px-5 sm:px-9 lg:px-14 space-y-5">
          <div className="input w-full ">
             <TextInputField
                className="py-5 !text-sm"

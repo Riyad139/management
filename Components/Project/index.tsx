@@ -8,7 +8,7 @@ const dummyData = [1, 2, 3]
 
 export default function Project(props: { project: Iproject }) {
    return (
-      <div className="px-5 mr-7 space-y-5  py-6 rounded-xl w-[350px] text-gray-700 bg-white">
+      <div className=" px-5 mr-7 lg:mr-5 2xl:mr-7 space-y-5  py-6 rounded-xl w-[22rem] lg:w-[18rem] 2xl:w-[22rem] text-gray-700 bg-white">
          <div className="img ">
             <img
                src={props.project.coverImage}

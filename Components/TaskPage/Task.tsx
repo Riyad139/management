@@ -20,7 +20,7 @@ export default function Task(props: { task: Itask; no: number }) {
    }
 
    return (
-      <div>
+      <div className="mx-5">
          <div className=" grid grid-cols-12">
             <div className="flex w-full col-start-1 col-end-13 md:col-end-7 lg:col-end-5  py-2 bg-white border text-sm ">
                <div className="flex items-center space-x-3">

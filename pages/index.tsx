@@ -10,31 +10,29 @@ import Calender from '../Components/Calendar'
 import { Imeetings } from '../@types/Imeetings'
 import { useEffect } from 'react'
 import SideBar from '../Components/SideBar'
+import SideBarComponent from '../Components/SideBar/SideBarComponent'
 
 const Home: NextPage = () => {
    const companies = useQuery('getcompanies', () => api.get('/companies'))
    const taskRes = useQuery('tasks', () => api.get<{ data: Itask[] }>('/tasks'))
    const meetings = useQuery('meetings', () => api.get<Imeetings[]>('/meetings'))
-   useEffect(() => console.log(taskRes.data?.data.data), [taskRes])
-   if (!taskRes.data?.data.data || !meetings.data?.data) return null
+
+   if (!taskRes.data?.data.data || !meetings.data?.data) return <div>Error</div>
 
    return (
-      <div className="p-2 flex flex-col lg:flex-row">
-         <div className=" order-2 lg:order-1 bg-white my-3 lg:mx-5 lg:rounded-3xl relative z-50 ">
-            <SideBar />
-            <div className="py-5 block lg:hidden">.</div>
-         </div>
+      <div className=" flex flex-col lg:flex-row">
+         <SideBarComponent />
          <div className="w-full order-1 lg:order-2">
             <SearchBar />
 
             {/* @TODO typing response */}
             <div className="flex gap-x-5  md:gap-x-7 px-4  sm:mx-0 flex-wrap">
-               <div className="w-full md:w-[48%] xl:w-auto">
+               <div className="w-full sm:w-[48%] xl:w-auto">
                   {companies.data?.data.map((company: any) => (
                      <Company {...company} />
                   ))}
                </div>
-               <div className="w-full md:w-[48%] xl:w-auto">
+               <div className="w-full sm:w-[48%] xl:w-auto">
                   <Mytask taskType="My Task" tasks={taskRes.data.data.data} />
                   <TaskByCompany
                      company={companies.data?.data}

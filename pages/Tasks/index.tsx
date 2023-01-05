@@ -15,6 +15,7 @@ import Task from '../../Components/TaskPage/Task'
 import { AiOutlinePlus } from 'react-icons/ai'
 import TaskModal from '../../Components/TaskPage/TaskModal'
 import TaskAddModal from '../../Components/TaskPage/TaskAddModal'
+import SideBarComponent from '../../Components/SideBar/SideBarComponent'
 
 export default function Tasks() {
    const tasks = useQuery('Tasks', () => api.get<{ data: Itask[] }>('/tasks'))
@@ -43,76 +44,84 @@ export default function Tasks() {
                <TaskAddModal Handler={setModal} />
             </TaskModal>
          )}
-         <SearchBar />
+         <div className="flex lg:flex-row flex-col ">
+            <SideBarComponent />
 
-         <Container>
-            <TitleBar
-               name="Task name"
-               tags={['Task Tags']}
-               hours="Hours"
-               assign={{ img: '', name: 'Task assign to' }}
-               date="Due Date"
-            />
-            <div className="space-y-6">
-               <div className="todo">
-                  <TitleBarForSection
-                     Handler={setOpenTodo}
-                     isOpen={isOpenTodo}
-                     name="To Do"
-                     total={todoData?.length}
-                  />
-                  <Collapsible open={isOpenTodo} trigger="">
-                     <div>
-                        {todoData?.map((it, i) => {
-                           if (it.board === 'todo') return <Task no={i} task={it} />
-                        })}
+            <div className="lg:order-2 order-1 w-full">
+               <SearchBar />
 
-                        <div
-                           onClick={() => setModal(true)}
-                           className="flex cursor-pointer space-x-4 bg-white py-2 text-sm items-center"
-                        >
-                           <AiOutlinePlus className="ml-14" />
-                           <p className="text-gray-600">Add New</p>
-                        </div>
-                     </div>
-                  </Collapsible>
-               </div>
-               <div className="working">
-                  <TitleBarForSection
-                     Handler={setOpenWorking}
-                     isOpen={isOpenWorking}
-                     name="Working"
-                     total={workingData?.length}
+               <Container>
+                  <TitleBar
+                     name="Task name"
+                     tags={['Task Tags']}
+                     hours="Hours"
+                     assign={{ img: '', name: 'Task assign to' }}
+                     date="Due Date"
                   />
-                  <Collapsible open={isOpenWorking} trigger="">
-                     <div>
-                        {workingData?.map((it, i) => {
-                           if (it.board === 'working') return <Task no={i} task={it} />
-                        })}
+                  <div className="space-y-6">
+                     <div className="todo">
+                        <TitleBarForSection
+                           Handler={setOpenTodo}
+                           isOpen={isOpenTodo}
+                           name="To Do"
+                           total={todoData?.length}
+                        />
+                        <Collapsible open={isOpenTodo} trigger="">
+                           <div>
+                              {todoData?.map((it, i) => {
+                                 if (it.board === 'todo') return <Task no={i} task={it} />
+                              })}
+
+                              <div
+                                 onClick={() => setModal(true)}
+                                 className="flex cursor-pointer mx-5 space-x-4 bg-white py-2 text-sm items-center"
+                              >
+                                 <AiOutlinePlus className="ml-14" />
+                                 <p className="text-gray-600">Add New</p>
+                              </div>
+                           </div>
+                        </Collapsible>
                      </div>
-                     <div className="flex space-x-4 bg-white cursor-pointer py-2 text-sm items-center">
-                        <AiOutlinePlus className="ml-14" />
-                        <p className="text-gray-600">Add New</p>
+                     <div className="working">
+                        <TitleBarForSection
+                           Handler={setOpenWorking}
+                           isOpen={isOpenWorking}
+                           name="Working"
+                           total={workingData?.length}
+                        />
+                        <Collapsible open={isOpenWorking} trigger="">
+                           <div>
+                              {workingData?.map((it, i) => {
+                                 if (it.board === 'working')
+                                    return <Task no={i} task={it} />
+                              })}
+                           </div>
+                           <div className="flex space-x-4 mx-5 bg-white cursor-pointer py-2 text-sm items-center">
+                              <AiOutlinePlus className="ml-14" />
+                              <p className="text-gray-600">Add New</p>
+                           </div>
+                        </Collapsible>
                      </div>
-                  </Collapsible>
-               </div>
-               <div className="completed">
-                  <TitleBarForSection
-                     Handler={setOpenCompleted}
-                     isOpen={isOpenCompleted}
-                     name="Completed"
-                     total={completedData?.length}
-                  />
-                  <Collapsible open={isOpenCompleted} trigger="">
-                     <div>
-                        {completedData?.map((it, i) => {
-                           if (it.board === 'completed') return <Task no={i} task={it} />
-                        })}
+                     <div className="completed">
+                        <TitleBarForSection
+                           Handler={setOpenCompleted}
+                           isOpen={isOpenCompleted}
+                           name="Completed"
+                           total={completedData?.length}
+                        />
+                        <Collapsible open={isOpenCompleted} trigger="">
+                           <div>
+                              {completedData?.map((it, i) => {
+                                 if (it.board === 'completed')
+                                    return <Task no={i} task={it} />
+                              })}
+                           </div>
+                        </Collapsible>
                      </div>
-                  </Collapsible>
-               </div>
+                  </div>
+               </Container>
             </div>
-         </Container>
+         </div>
       </div>
    )
 }

@@ -10,7 +10,7 @@ export default function TitleBarForSection(props: {
    return (
       <div
          onClick={() => props.Handler(!props.isOpen)}
-         className="w-full flex space-x-4 cursor-pointer text-gray-700 font-semibold items-center py-2 rounded-md  bg-white"
+         className=" mx-5 flex space-x-4 cursor-pointer text-gray-700 font-semibold items-center py-2 rounded-md  bg-white"
       >
          <AiFillCaretDown
             className={classNames('ml-4', props.isOpen ? 'rotate-0' : '-rotate-90')}

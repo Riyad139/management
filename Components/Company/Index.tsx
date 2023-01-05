@@ -76,7 +76,7 @@ export default function Company(company: ICompany) {
                   {projectRes.data?.data[0].totalTask}
                </p>
                <div className="">
-                  <LinearProgress className='!z-5' variant="determinate" value={50} />
+                  <LinearProgress className="!z-5" variant="determinate" value={50} />
                </div>
             </div>
             {/* task starts here */}
